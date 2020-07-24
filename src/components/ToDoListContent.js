@@ -1,13 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
+import { useTodoDispatch } from "./TodoContext";
 
 const CheckIcon = styled.div`
   font-size: 1.7rem;
   width: 20px;
   height: 20px;
   border-radius: 20px;
-  border: 1px solid black;
+  border: 1px solid #38d9a9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,12 +55,29 @@ const ContentList = styled.div`
 `;
 
 function ToDoListContent({ id, done, text }) {
+  const dispatch = useTodoDispatch();
+
+  const onToggle = () => {
+    dispatch({
+      type: "TOGGLE",
+      id,
+    });
+  };
+
+  const onRemove = () => {
+    dispatch({
+      type: "REMOVE",
+      id,
+    });
+  };
   return (
     <ContentList>
-      <CheckIcon done={done}>{done && <MdDone />}</CheckIcon>
+      <CheckIcon onClick={onToggle} done={done}>
+        {done && <MdDone />}
+      </CheckIcon>
       <ContentText done={done}>{text}</ContentText>
       <ContentDelete>
-        <MdDelete />
+        <MdDelete onClick={onRemove} />
       </ContentDelete>
     </ContentList>
   );

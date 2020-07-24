@@ -2,8 +2,10 @@ import React from "react";
 import { createGlobalStyle } from "styled-components";
 import ToDoListContainer from "./components/ToDoListContainer";
 import ToDoHead from "./components/ToDoHead";
-import ToDoListContent from "./components/ToDoListContent";
+
 import ToDoItem from "./components/ToDoCreate";
+import { TodoProvider } from "./components/TodoContext";
+import TodoList from "./components/TodoList";
 
 const GlobalStyle = createGlobalStyle`
 body{
@@ -17,17 +19,14 @@ body{
 `;
 function App() {
   return (
-    <>
+    <TodoProvider>
       <GlobalStyle />
       <ToDoListContainer>
         <ToDoHead />
-        <ToDoListContent done={true} text={"투두리스크"} />
-        <ToDoListContent text={"투두리스크"} />
-        <ToDoListContent done={true} text={"투두리스크"} />
-        <ToDoListContent text={"투두리스크"} />
+        <TodoList />
         <ToDoItem />
       </ToDoListContainer>
-    </>
+    </TodoProvider>
   );
 }
 

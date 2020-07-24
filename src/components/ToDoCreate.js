@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
+import { useTodoDispatch, useNextId } from "./TodoContext";
 
 const CreateIcon = styled.div`
   position: absolute;
@@ -34,7 +35,7 @@ const CreateIcon = styled.div`
       transform: translate(-50%, 50%) rotate(45deg);
     `};
 `;
-
+const Form = styled.form``;
 const TodoInput = styled.input`
   position: absolute;
   height: 40px;
@@ -70,14 +71,39 @@ const TodoInput = styled.input`
     `};
 `;
 function ToDoItem() {
+  const nextId = useNextId();
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+  const disPatch = useTodoDispatch();
+  const onChange = (e) => setValue(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    disPatch({
+      type: "CREATE",
+      todo: {
+        id: nextId.current,
+        text: value,
+        done: false,
+      },
+    });
+    setValue("");
+    setOpen(false);
+    nextId.current += 1;
+  };
   const onToggle = () => setOpen(!open);
   return (
     <>
       <CreateIcon onClick={onToggle} open={open}>
         <MdAdd />
       </CreateIcon>
-      <TodoInput placeholder="할 일을 입력하세요" open={open} autoFocus />
+      <Form onSubmit={onSubmit}>
+        <TodoInput
+          placeholder="할 일을 입력후, Enter를 누르세요."
+          open={open}
+          autoFocus
+          onChange={onChange}
+        />
+      </Form>
     </>
   );
 }

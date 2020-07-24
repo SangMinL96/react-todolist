@@ -9,6 +9,8 @@ const TodoContainer = styled.div`
   height: 768px;
   position: relative;
   box-shadow: 0 0 8px rgba(0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
 `;
 function ToDoListContainer({ children }) {
   return (

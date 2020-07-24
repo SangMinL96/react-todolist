@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTodoState } from "./TodoContext";
 
 const ToDoHeadcontent = styled.div`
   padding-left: 30px;
@@ -20,12 +21,15 @@ const ToDoHeadcontent = styled.div`
     margin-top: 20px;
   }
 `;
+
 function ToDoHead() {
+  const todos = useTodoState();
+  const count = todos.filter((todo) => !todo.done);
   return (
     <ToDoHeadcontent>
       <h1>2020년 7월 23일</h1>
       <div className="day">일요일</div>
-      <div className="todocount">할 일 3개 남음</div>
+      <div className="todocount">할 일 {count.length}개 남음</div>
     </ToDoHeadcontent>
   );
 }
