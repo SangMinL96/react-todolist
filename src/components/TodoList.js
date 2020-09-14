@@ -5,7 +5,6 @@ import { useTodoState } from "./TodoContext";
 
 const TodoListBlock = styled.div`
   flex: 1;
-
   overflow-y: auto;
 `;
 function TodoList() {

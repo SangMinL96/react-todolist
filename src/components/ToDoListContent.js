@@ -57,7 +57,7 @@ const ContentList = styled.div`
 function ToDoListContent({ id, done, text }) {
   const dispatch = useTodoDispatch();
 
-  const onToggle = () => {
+  const onToggle = (ev) => {
     dispatch({
       type: "TOGGLE",
       id,
@@ -70,12 +70,23 @@ function ToDoListContent({ id, done, text }) {
       id,
     });
   };
+  const onEdit = () => {
+    dispatch({
+      type: "EDIT",
+      user: {
+        id: 5,
+        text: "asdfsdaf",
+        done: true,
+      },
+    });
+  };
   return (
     <ContentList>
       <CheckIcon onClick={onToggle} done={done}>
         {done && <MdDone />}
       </CheckIcon>
       <ContentText done={done}>{text}</ContentText>
+      <span onClick={onEdit}>편집</span>
       <ContentDelete>
         <MdDelete onClick={onRemove} />
       </ContentDelete>

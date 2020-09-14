@@ -27,6 +27,15 @@ function todoReducer(state, action) {
       );
     case "REMOVE":
       return state.filter((user) => user.id !== action.id);
+    case "EDIT":
+      const upUser = action.user;
+      const upUsers = state.craeteTodos.map((user) => {
+        if (user.id === upUser.id) {
+          return upUser;
+        }
+      });
+      return upUsers;
+
     default:
       throw new Error("Error");
   }
